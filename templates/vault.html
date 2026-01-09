@@ -3,6 +3,7 @@
 <html>
 <head>
     <title>The Black Pearl - Treasure Vault</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -10,14 +11,14 @@
             box-sizing: border-box;
         }
         body {
-            font-family: 'Georgia', serif;
+            font-family: 'Cinzel', serif;
             min-height: 100vh;
-            background: url('https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1920&q=80') center/cover fixed;
-            position: relative;
+            background: url('/static/images/a.jpg') center/cover fixed;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 20px;
+            color: #e0f7fa;
         }
         body::before {
             content: '';
@@ -26,7 +27,9 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(0,0,0,0.92) 0%, rgba(20,20,40,0.95) 100%);
+            background: linear-gradient(135deg, 
+                rgba(10,25,41,0.94) 0%, 
+                rgba(13,35,55,0.96) 100%);
             z-index: 1;
         }
         .container {
@@ -36,23 +39,27 @@
             width: 100%;
         }
         .vault-box {
-            background: rgba(0, 0, 0, 0.95);
-            padding: 50px;
-            border-radius: 20px;
-            box-shadow: 0 12px 60px rgba(0,0,0,0.8);
-            border: 4px solid #ffd700;
-            color: #f4e4c1;
+            background: linear-gradient(135deg, 
+                rgba(10,25,41,0.97) 0%, 
+                rgba(13,35,55,0.97) 100%);
+            padding: 55px;
+            border-radius: 25px;
+            box-shadow: 0 15px 70px rgba(0,0,0,0.9),
+                        0 0 70px rgba(72,209,204,0.4);
+            border: 4px solid rgba(72,209,204,0.7);
+            backdrop-filter: blur(15px);
             text-align: center;
         }
         h1 {
-            color: #ffd700;
-            font-size: 42px;
-            margin-bottom: 30px;
-            text-shadow: 0 0 20px rgba(255,215,0,0.5);
+            font-family: 'Pirata One', cursive;
+            color: #48d1cc;
+            font-size: 48px;
+            margin-bottom: 35px;
+            text-shadow: 0 0 35px rgba(72,209,204,0.9);
         }
         .lock-icon {
             font-size: 80px;
-            margin: 20px 0;
+            margin: 25px 0;
             animation: pulse 2s ease-in-out infinite;
         }
         @keyframes pulse {
@@ -60,48 +67,59 @@
             50% { transform: scale(1.1); }
         }
         .riddle-box {
-            background: rgba(139,0,0,0.3);
-            padding: 30px;
-            border-radius: 15px;
-            border: 3px solid #8b0000;
-            margin: 30px 0;
-            line-height: 2;
+            background: linear-gradient(135deg, 
+                rgba(72,209,204,0.2) 0%, 
+                rgba(32,178,170,0.15) 100%);
+            padding: 35px;
+            border-radius: 18px;
+            border: 3px solid rgba(72,209,204,0.6);
+            margin: 35px 0;
+            line-height: 2.1;
+            box-shadow: 0 4px 25px rgba(72,209,204,0.3);
         }
         input {
             width: 100%;
-            padding: 18px;
-            background: rgba(0,0,0,0.8);
-            border: 3px solid #ffd700;
-            border-radius: 10px;
-            color: #ffd700;
+            padding: 20px;
+            background: rgba(10,25,41,0.9);
+            border: 3px solid rgba(72,209,204,0.7);
+            border-radius: 12px;
+            color: #48d1cc;
             font-size: 20px;
             text-align: center;
-            letter-spacing: 3px;
-            margin: 20px 0;
+            letter-spacing: 4px;
+            margin: 25px 0;
             font-family: 'Courier New', monospace;
         }
         button {
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #8b7355 0%, #5c4a3a 100%);
-            color: #ffd700;
-            border: 3px solid #ffd700;
-            border-radius: 10px;
+            padding: 18px 45px;
+            background: linear-gradient(135deg, #48d1cc 0%, #20b2aa 100%);
+            color: #0a1929;
+            border: none;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 18px;
+            font-size: 19px;
             font-weight: bold;
+            font-family: 'Cinzel', serif;
             transition: all 0.3s;
+            box-shadow: 0 5px 20px rgba(72,209,204,0.5);
         }
         button:hover {
             transform: scale(1.05);
-            box-shadow: 0 6px 25px rgba(255,215,0,0.6);
+            box-shadow: 0 8px 30px rgba(72,209,204,0.7);
         }
         .hint {
-            margin-top: 30px;
-            padding: 20px;
-            background: rgba(139,115,85,0.2);
-            border-radius: 10px;
-            border: 2px dashed #8b7355;
+            margin-top: 35px;
+            padding: 25px;
+            background: rgba(72,209,204,0.1);
+            border-radius: 12px;
+            border: 2px dashed rgba(72,209,204,0.5);
             font-size: 14px;
+            line-height: 1.8;
+        }
+        #errorMsg {
+            color: #ff6b9d;
+            margin-top: 20px;
+            display: none;
         }
     </style>
 </head>
@@ -115,8 +133,7 @@
                 <p style="font-size: 18px; color: #ffd700;"><strong>The Final Chamber Awaits</strong></p>
                 <br>
                 <p><em>"Three fragments spoken by the crew,<br>
-                A PEARL, a COMPASS, and a CODE too.<br>
-                String them together without a space,<br>
+                    amalgamate<br>
                 And enter the vault's hidden place."</em></p>
             </div>
             
@@ -132,25 +149,7 @@
     </div>
     
     <script>
-        function checkVault(event) {
-            event.preventDefault();
-            const code = document.getElementById('vaultCode').value.toUpperCase();
-            const errorMsg = document.getElementById('errorMsg');
-            
-            // Client-side "check" (but real validation is server-side)
-            if (code.includes('PEARL') && code.includes('COMPASS') && code.includes('CODE')) {
-                window.location.href = '/vault/final?code=' + encodeURIComponent(code);
-            } else {
-                errorMsg.textContent = '⚠️ Incomplete phrase - The vault remains sealed';
-                errorMsg.style.display = 'block';
-            }
-            
-            return false;
-        }
-        
         console.log('[Vault] The final chamber requires the complete phrase');
-        console.log('[Hint] Combine all three fragments you found in the crew notes');
-        console.log('[Hint] Access pattern: /vault/final?code=PEARLCOMPASSCODE');
     </script>
 </body>
 </html>

@@ -66,7 +66,7 @@ def init_db():
     
     cur.execute("""INSERT INTO notes VALUES 
         (5, 1, 'Hidden Navigation Chart', 
-        'The final chamber requires the phrase. Only those who read between them find /vault/final', 1)""")
+        'The final chamber requires the phrase. Only those who read final line between them find vault', 1)""")
     
     conn.commit()
     conn.close()

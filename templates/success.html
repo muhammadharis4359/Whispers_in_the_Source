@@ -3,6 +3,8 @@
 <html>
 <head>
     <title>The Black Pearl - Treasure Found!</title>
+    <title>The Black Pearl - Flag Captured!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -10,10 +12,9 @@
             box-sizing: border-box;
         }
         body {
-            font-family: 'Georgia', serif;
+            font-family: 'Cinzel', serif;
             min-height: 100vh;
-            background: url('https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1920&q=80') center/cover fixed;
-            position: relative;
+            background: url('/static/images/1.jpg') center/cover fixed;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -26,79 +27,78 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(0,0,0,0.92) 0%, rgba(20,58,82,0.95) 100%);
+            background: linear-gradient(135deg, 
+                rgba(10,25,41,0.97) 0%, 
+                rgba(13,35,55,0.98) 100%);
             z-index: 1;
         }
         .container {
             position: relative;
             z-index: 2;
-            max-width: 900px;
+            max-width: 950px;
             width: 100%;
         }
         .success-box {
-            background: rgba(0, 0, 0, 0.98);
-            padding: 60px;
-            border-radius: 25px;
-            box-shadow: 0 0 80px rgba(255,215,0,0.8);
-            border: 5px solid #ffd700;
-            color: #ffd700;
+            background: linear-gradient(135deg, 
+                rgba(10,25,41,0.98) 0%, 
+                rgba(13,35,55,0.99) 100%);
+            border: 5px solid #48d1cc;
+            padding: 65px;
+            border-radius: 30px;
+            box-shadow: 0 0 90px rgba(72,209,204,0.9);
+            color: #48d1cc;
             text-align: center;
         }
         h1 {
-            font-size: 52px;
-            margin-bottom: 20px;
+            font-family: 'Pirata One', cursive;
+            font-size: 60px;
             animation: glow 2s ease-in-out infinite;
+            margin-bottom: 35px;
         }
         @keyframes glow {
-            0%, 100% { text-shadow: 0 0 20px #ffd700, 0 0 40px #ffd700; }
-            50% { text-shadow: 0 0 30px #ffd700, 0 0 60px #ffd700, 0 0 80px #ffd700; }
-        }
-        .treasure-icon {
-            font-size: 100px;
-            margin: 30px 0;
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+            0%, 100% { text-shadow: 0 0 25px #48d1cc, 0 0 50px #48d1cc; }
+            50% { text-shadow: 0 0 50px #48d1cc, 0 0 90px #48d1cc; }
         }
         .flag {
             background: #000;
             padding: 35px;
-            border: 4px solid #ffd700;
-            border-radius: 15px;
-            margin: 40px 0;
-            font-size: 26px;
-            letter-spacing: 4px;
+            border: 5px solid #48d1cc;
+            border-radius: 18px;
+            margin: 45px 0;
+            font-size: 28px;
+            letter-spacing: 5px;
             font-family: 'Courier New', monospace;
             color: #00ff00;
-            box-shadow: 0 0 40px rgba(255,215,0,0.5);
+            box-shadow: 0 0 50px rgba(72,209,204,0.6);
         }
         .revelation {
-            background: rgba(139,115,85,0.3);
-            padding: 35px;
-            border-radius: 15px;
-            border: 3px solid #8b7355;
-            margin: 30px 0;
+            background: linear-gradient(135deg, 
+                rgba(72,209,204,0.15) 0%, 
+                rgba(32,178,170,0.1) 100%);
+            padding: 40px;
+            border-radius: 18px;
+            border: 3px solid rgba(72,209,204,0.6);
+            margin: 35px 0;
             line-height: 2;
-            color: #f4e4c1;
+            color: #e0f7fa;
             text-align: left;
         }
         .stages {
             text-align: left;
-            margin: 30px 0;
-            padding: 30px;
-            background: rgba(0,0,0,0.5);
-            border-radius: 15px;
-            border: 2px solid #8b7355;
+            margin: 35px 0;
+            padding: 35px;
+            background: rgba(10,25,41,0.6);
+            border-radius: 18px;
+            border: 2px solid rgba(72,209,204,0.4);
         }
         .stage-item {
-            margin: 15px 0;
-            padding-left: 20px;
+            margin: 18px 0;
+            padding-left: 25px;
             font-size: 17px;
-            color: #f4e4c1;
+            color: #e0f7fa;
         }
     </style>
+
 </head>
 <body>
     <div class="container">

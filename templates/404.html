@@ -3,22 +3,16 @@
 <html>
 <head>
     <title>The Black Pearl - Lost at Sea</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body{
-            font-family:'Georgia',serif;
-            min-height:100vh;
-            background:url('1.jpg') center center fixed;
-            background-size:cover;
-            position:relative;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            padding:20px;
+        body {
+            font-family: 'Cinzel', serif;
+            min-height: 100vh;
+            background: url('/static/images/12.jpg') center/cover fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
         body::before {
             content: '';
@@ -27,7 +21,9 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: linear-gradient(135deg, rgba(0,0,0,0.9) 0%, rgba(20,20,40,0.95) 100%);
+            background: linear-gradient(135deg, 
+                rgba(139,0,0,0.8) 0%, 
+                rgba(70,0,0,0.9) 100%);
             z-index: 1;
         }
         .container {
