@@ -1,0 +1,168 @@
+<!-- templates/dashboard.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The Black Pearl - Main Deck</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            min-height: 100vh;
+            background: url('https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&q=80') center/cover fixed;
+            position: relative;
+            padding: 20px;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.85) 0%, rgba(20,20,40,0.9) 100%);
+            z-index: 1;
+        }
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            border: 3px solid #8b7355;
+            color: #f4e4c1;
+            text-align: center;
+        }
+        .ship-banner {
+            width: 100%;
+            height: 200px;
+            background: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&q=80') center/cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #ffd700;
+        }
+        h1 {
+            color: #ffd700;
+            margin: 15px 0;
+        }
+        .nav {
+            background: linear-gradient(135deg, rgba(139,115,85,0.9) 0%, rgba(92,74,58,0.9) 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        .nav a {
+            color: #ffd700;
+            text-decoration: none;
+            margin-right: 25px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        .nav a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #ffd700;
+        }
+        .content {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            border: 3px solid #8b7355;
+            color: #f4e4c1;
+        }
+        .access-panel {
+            padding: 20px;
+            background: rgba(139, 115, 85, 0.2);
+            border-radius: 10px;
+            border: 2px solid #8b7355;
+            margin: 15px 0;
+        }
+        .locked {
+            color: #8b7355;
+            font-style: italic;
+        }
+        .unlocked {
+            color: #51cf66;
+            font-weight: bold;
+        }
+        .whisper-box {
+            background: linear-gradient(135deg, rgba(139,0,0,0.3) 0%, rgba(70,0,0,0.3) 100%);
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 25px;
+            border: 2px solid #8b0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="ship-banner"></div>
+            <h1>🏴‍☠️ The Black Pearl - Main Deck 🏴‍☠️</h1>
+            <p id="welcomeMsg">Welcome aboard, <span id="crewName">Sailor</span></p>
+            <p style="font-size: 14px; color: #8b7355;">Role: <span id="crewRole">Unknown</span></p>
+        </div>
+        
+        <div class="nav">
+            <a href="/dashboard">🗺️ Main Deck</a>
+            <a href="/notes">📜 Crew Logs</a>
+            <a href="/admin" id="adminLink" style="display:none;">⚓ Captain's Quarters</a>
+            <a href="/vault">🔐 Vault</a>
+            <a href="/" style="float: right;">⚔️ Abandon Ship</a>
+        </div>
+        
+        <div class="content">
+            <h2>⛵ Ship Status</h2>
+            
+            <div class="access-panel">
+                <p>📋 Crew Manifest: <span class="unlocked">✓ Accessible</span></p>
+                <p>📜 Navigation Logs: <span class="unlocked">✓ Accessible</span></p>
+                <p>⚓ Captain's Quarters: <span id="adminStatus" class="locked">✗ Restricted</span></p>
+                <p>🔐 Treasure Vault: <span class="locked">✗ Sealed</span></p>
+            </div>
+            
+            <div class="whisper-box">
+                <strong>🧜‍♀️ Whispers in the Wind:</strong><br><br>
+                <em>"Your task is not to break the gate… but to understand who truly controls it."</em>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Check "authentication" (client-side only!)
+        const authenticated = localStorage.getItem('authenticated');
+        const username = localStorage.getItem('username');
+        const role = localStorage.getItem('role');
+        
+        if (!authenticated) {
+            window.location.href = '/';
+        }
+        
+        document.getElementById('crewName').textContent = username || 'Unknown';
+        document.getElementById('crewRole').textContent = role || 'sailor';
+        
+        // Show admin link if role is captain or officer (client-side check!)
+        if (role === 'captain' || role === 'officer') {
+            document.getElementById('adminLink').style.display = 'inline';
+            document.getElementById('adminStatus').textContent = '✓ Accessible';
+            document.getElementById('adminStatus').className = 'unlocked';
+        }
+        
+        console.log('[Black Pearl] Dashboard loaded');
+        console.log('[Session] User:', username);
+        console.log('[Session] Role:', role);
+        console.log('[Hint] What if you changed your role in localStorage?');
+    </script>
+</body>
+</html>

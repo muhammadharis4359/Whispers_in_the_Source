@@ -1,0 +1,224 @@
+<!-- templates/login.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The Black Pearl - Port Terminal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            min-height: 100vh;
+            background: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1920&q=80') center/cover fixed;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.8) 0%, rgba(20,20,40,0.85) 100%);
+            z-index: 1;
+        }
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 500px;
+            width: 100%;
+        }
+        .ship-logo {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            background: url('https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&q=80') center/cover;
+            border-radius: 50%;
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+        }
+        .login-box {
+            background: rgba(0, 0, 0, 0.85);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+            border: 3px solid #8b7355;
+            backdrop-filter: blur(10px);
+            color: #f4e4c1;
+        }
+        h1 {
+            text-align: center;
+            color: #ffd700;
+            font-size: 36px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.8);
+        }
+        .subtitle {
+            text-align: center;
+            color: #c0a080;
+            font-style: italic;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        .warning-box {
+            background: rgba(139, 0, 0, 0.3);
+            border: 2px solid #8b0000;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            text-align: center;
+            font-size: 13px;
+        }
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 12px 0;
+            background: rgba(20, 20, 20, 0.8);
+            border: 2px solid #8b7355;
+            border-radius: 8px;
+            color: #f4e4c1;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        input:focus {
+            outline: none;
+            border-color: #ffd700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
+        }
+        input::placeholder {
+            color: #8b7355;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #8b7355 0%, #5c4a3a 100%);
+            color: #ffd700;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: all 0.3s;
+        }
+        button:hover {
+            background: linear-gradient(135deg, #5c4a3a 0%, #3d3020 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.4);
+        }
+        #errorMsg {
+            color: #ff6b6b;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+            display: none;
+        }
+        #successMsg {
+            color: #51cf66;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+            display: none;
+        }
+        .hint {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(139, 115, 85, 0.2);
+            border-radius: 8px;
+            border: 1px dashed #8b7355;
+            font-size: 13px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="ship-logo"></div>
+        <div class="login-box">
+            <h1>⚓ The Black Pearl ⚓</h1>
+            <div class="subtitle">Port Terminal Access</div>
+            
+            <div class="warning-box">
+                ⚠️ Authorized Personnel Only<br>
+                <em>"The Pearl does not trust appearances..."</em>
+            </div>
+            
+            <form id="loginForm" onsubmit="return handleLogin(event)">
+                <input type="text" id="username" placeholder="Crew Username" required>
+                <input type="password" id="password" placeholder="Secret Passage" required>
+                <button type="submit">🗝️ Request Entry</button>
+            </form>
+            
+            <div id="errorMsg"></div>
+            <div id="successMsg"></div>
+            
+            <div class="hint">
+                <strong>🧜‍♀️ The Sailors Whisper:</strong><br>
+                <em>"The gate does not obey the server — it obeys the browser.<br>
+                And the browser remembers more than it should."</em>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/static/auth.js"></script>
+    <script>
+        // Client-side authentication logic (VULNERABILITY!)
+        const VALID_CREDENTIALS = {
+            'jack_sparrow': 'rumrunner',
+            'will_turner': 'elizabeth',
+            'joshamee': 'cotton_parrot'
+        };
+        
+        const USER_ROLE = {
+            'jack_sparrow': 'captain',
+            'will_turner': 'officer',
+            'joshamee': 'quartermaster'
+        };
+        
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('errorMsg');
+            const successMsg = document.getElementById('successMsg');
+            
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+            
+            // CRITICAL FLAW: Authentication happens entirely client-side!
+            if (VALID_CREDENTIALS[username] === password) {
+                // Store credentials in localStorage (another vulnerability!)
+                localStorage.setItem('authenticated', 'true');
+                localStorage.setItem('username', username);
+                localStorage.setItem('role', USER_ROLES[username]);
+                localStorage.setItem('sessionToken', btoa(username + ':' + Date.now()));
+                
+                successMsg.textContent = '✓ Access Granted - Welcome aboard the Pearl';
+                successMsg.style.display = 'block';
+                
+                setTimeout(() => {
+                    window.location.href = '/dashboard';
+                }, 1500);
+            } else {
+                errorMsg.textContent = '⚠️ Invalid credentials - The Pearl remains closed';
+                errorMsg.style.display = 'block';
+            }
+            
+            return false;
+        }
+        
+        // Log hints for curious players
+        console.log('[Black Pearl] Port Terminal System v2.1');
+        console.log('[Security] Client-side authentication active');
+        console.log('[Debug] Valid users stored in auth.js');
+        </script>
+</body>
+</html>

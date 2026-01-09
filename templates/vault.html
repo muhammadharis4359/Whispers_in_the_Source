@@ -1,0 +1,156 @@
+<!-- templates/vault.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The Black Pearl - Treasure Vault</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            min-height: 100vh;
+            background: url('https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1920&q=80') center/cover fixed;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.92) 0%, rgba(20,20,40,0.95) 100%);
+            z-index: 1;
+        }
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+            width: 100%;
+        }
+        .vault-box {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 12px 60px rgba(0,0,0,0.8);
+            border: 4px solid #ffd700;
+            color: #f4e4c1;
+            text-align: center;
+        }
+        h1 {
+            color: #ffd700;
+            font-size: 42px;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(255,215,0,0.5);
+        }
+        .lock-icon {
+            font-size: 80px;
+            margin: 20px 0;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .riddle-box {
+            background: rgba(139,0,0,0.3);
+            padding: 30px;
+            border-radius: 15px;
+            border: 3px solid #8b0000;
+            margin: 30px 0;
+            line-height: 2;
+        }
+        input {
+            width: 100%;
+            padding: 18px;
+            background: rgba(0,0,0,0.8);
+            border: 3px solid #ffd700;
+            border-radius: 10px;
+            color: #ffd700;
+            font-size: 20px;
+            text-align: center;
+            letter-spacing: 3px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+        }
+        button {
+            padding: 15px 40px;
+            background: linear-gradient(135deg, #8b7355 0%, #5c4a3a 100%);
+            color: #ffd700;
+            border: 3px solid #ffd700;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 25px rgba(255,215,0,0.6);
+        }
+        .hint {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(139,115,85,0.2);
+            border-radius: 10px;
+            border: 2px dashed #8b7355;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="vault-box">
+            <h1>🔐 The Vault 🔐</h1>
+            <div class="lock-icon">🗝️</div>
+            
+            <div class="riddle-box">
+                <p style="font-size: 18px; color: #ffd700;"><strong>The Final Chamber Awaits</strong></p>
+                <br>
+                <p><em>"Three fragments spoken by the crew,<br>
+                A PEARL, a COMPASS, and a CODE too.<br>
+                String them together without a space,<br>
+                And enter the vault's hidden place."</em></p>
+            </div>
+            
+            <form onsubmit="return checkVault(event)">
+                <input type="text" id="vaultCode" placeholder="Enter the Master Phrase" required>
+                <button type="submit">🔓 Unlock Vault</button>
+            </form>
+            
+            <p style="margin-top: 30px;">
+                <a href="/dashboard" style="color: #ffd700;">← Return to Main Deck</a>
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        function checkVault(event) {
+            event.preventDefault();
+            const code = document.getElementById('vaultCode').value.toUpperCase();
+            const errorMsg = document.getElementById('errorMsg');
+            
+            // Client-side "check" (but real validation is server-side)
+            if (code.includes('PEARL') && code.includes('COMPASS') && code.includes('CODE')) {
+                window.location.href = '/vault/final?code=' + encodeURIComponent(code);
+            } else {
+                errorMsg.textContent = '⚠️ Incomplete phrase - The vault remains sealed';
+                errorMsg.style.display = 'block';
+            }
+            
+            return false;
+        }
+        
+        console.log('[Vault] The final chamber requires the complete phrase');
+        console.log('[Hint] Combine all three fragments you found in the crew notes');
+        console.log('[Hint] Access pattern: /vault/final?code=PEARLCOMPASSCODE');
+    </script>
+</body>
+</html>

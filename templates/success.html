@@ -1,0 +1,151 @@
+<!-- templates/success.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The Black Pearl - Treasure Found!</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            min-height: 100vh;
+            background: url('https://images.unsplash.com/photo-1610375461246-83df859d849d?w=1920&q=80') center/cover fixed;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.92) 0%, rgba(20,58,82,0.95) 100%);
+            z-index: 1;
+        }
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            width: 100%;
+        }
+        .success-box {
+            background: rgba(0, 0, 0, 0.98);
+            padding: 60px;
+            border-radius: 25px;
+            box-shadow: 0 0 80px rgba(255,215,0,0.8);
+            border: 5px solid #ffd700;
+            color: #ffd700;
+            text-align: center;
+        }
+        h1 {
+            font-size: 52px;
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite;
+        }
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 0 20px #ffd700, 0 0 40px #ffd700; }
+            50% { text-shadow: 0 0 30px #ffd700, 0 0 60px #ffd700, 0 0 80px #ffd700; }
+        }
+        .treasure-icon {
+            font-size: 100px;
+            margin: 30px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        .flag {
+            background: #000;
+            padding: 35px;
+            border: 4px solid #ffd700;
+            border-radius: 15px;
+            margin: 40px 0;
+            font-size: 26px;
+            letter-spacing: 4px;
+            font-family: 'Courier New', monospace;
+            color: #00ff00;
+            box-shadow: 0 0 40px rgba(255,215,0,0.5);
+        }
+        .revelation {
+            background: rgba(139,115,85,0.3);
+            padding: 35px;
+            border-radius: 15px;
+            border: 3px solid #8b7355;
+            margin: 30px 0;
+            line-height: 2;
+            color: #f4e4c1;
+            text-align: left;
+        }
+        .stages {
+            text-align: left;
+            margin: 30px 0;
+            padding: 30px;
+            background: rgba(0,0,0,0.5);
+            border-radius: 15px;
+            border: 2px solid #8b7355;
+        }
+        .stage-item {
+            margin: 15px 0;
+            padding-left: 20px;
+            font-size: 17px;
+            color: #f4e4c1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="success-box">
+            <h1>🏴‍☠️ TREASURE CLAIMED! 🏴‍☠️</h1>
+            <div class="treasure-icon">💎</div>
+            
+            <div class="flag">
+                {{ flag }}
+            </div>
+            
+            <div class="revelation">
+                <h2 style="color: #ffd700; margin-bottom: 20px;">🧜‍♀️ The Truth Revealed</h2>
+                <p><strong>You did not hack the server.</strong></p>
+                <p><strong>You convinced the client to betray it.</strong></p>
+                <br>
+                <p>Every gate you passed was guarded by JavaScript, not the backend.</p>
+                <p>Every role check happened in YOUR browser.</p>
+                <p>Every secret was whispered by the source code itself.</p>
+                <br>
+                <p style="font-style: italic; color: #8b7355;">
+                    "The gate does not obey the server — it obeys the browser.<br>
+                    And the browser remembers more than it should."
+                </p>
+            </div>
+            
+            <div class="stages">
+                <h3 style="color: #ffd700; margin-bottom: 20px;">Your Journey Through the Pearl:</h3>
+                <div class="stage-item">🗝️ Phase 1: Discovered client-side authentication</div>
+                <div class="stage-item">📜 Phase 2: Found hardcoded credentials in JavaScript</div>
+                <div class="stage-item">⚓ Phase 3: Bypassed admin protection via localStorage</div>
+                <div class="stage-item">📖 Phase 4: Exploited unprotected API endpoints</div>
+                <div class="stage-item">🎣 Phase 5: Reconstructed fragments from crew notes</div>
+                <div class="stage-item">🔐 Phase 6: Unlocked the final vault</div>
+            </div>
+            
+            <p style="font-size: 20px; margin-top: 30px; color: #87ceeb;">
+                <strong>Created By:</strong><br>
+                DarkPulseX
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        console.log('[🎉] FLAG CAPTURED!');
+        console.log('[Black Pearl] The whispers in the source led you home');
+        console.log('[Security] Client-side security is NO security');
+    </script>
+</body>
+</html>

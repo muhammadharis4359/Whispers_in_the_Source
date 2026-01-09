@@ -1,0 +1,176 @@
+<!-- templates/notes.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The Black Pearl - Crew Logs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Georgia', serif;
+            min-height: 100vh;
+            background: url('https://images.unsplash.com/photo-1505142468610-359e7d316be0?w=1920&q=80') center/cover fixed;
+            position: relative;
+            padding: 20px;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(0,0,0,0.88) 0%, rgba(20,20,40,0.92) 100%);
+            z-index: 1;
+        }
+        .container {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .header {
+            background: rgba(0, 0, 0, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+            border: 3px solid #8b7355;
+            color: #f4e4c1;
+            text-align: center;
+        }
+        h1 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+        .note-card {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 25px;
+            border-radius: 12px;
+            margin: 15px 0;
+            border-left: 5px solid #8b7355;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            color: #f4e4c1;
+            transition: all 0.3s;
+        }
+        .note-card:hover {
+            transform: translateX(10px);
+            border-left-color: #ffd700;
+        }
+        .note-card.private {
+            border-left-color: #8b0000;
+            background: rgba(139, 0, 0, 0.15);
+        }
+        .note-title {
+            color: #ffd700;
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .note-meta {
+            color: #8b7355;
+            font-size: 13px;
+            margin-bottom: 15px;
+        }
+        .note-content {
+            line-height: 1.8;
+            color: #c0a080;
+        }
+        .filter-box {
+            background: rgba(139,115,85,0.3);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #8b7355;
+            margin-bottom: 25px;
+        }
+        select {
+            padding: 10px 15px;
+            background: rgba(0,0,0,0.8);
+            border: 2px solid #8b7355;
+            border-radius: 8px;
+            color: #f4e4c1;
+            font-size: 15px;
+            cursor: pointer;
+        }
+        .hint-box {
+            background: rgba(139,0,0,0.3);
+            padding: 20px;
+            border-radius: 12px;
+            border: 2px solid #8b0000;
+            margin-top: 25px;
+            color: #f4e4c1;
+        }
+        a {
+            color: #ffd700;
+            text-decoration: none;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📜 Crew Logs & Notes 📜</h1>
+            <p>Records of the Black Pearl's crew</p>
+        </div>
+        
+        <div class="filter-box">
+            <label style="color: #f4e4c1; margin-right: 15px;">View Notes From:</label>
+            <select id="userFilter" onchange="filterNotes()">
+                <option value="all">All Crew Members</option>
+                <option value="1">Captain Jack Sparrow</option>
+                <option value="2">Officer Will Turner</option>
+                <option value="3">Quartermaster Joshamee</option>
+                <option value="4">Deckhand Tom</option>
+            </select>
+        </div>
+        
+        <div id="notesContainer">
+            {% for note in notes %}
+            <div class="note-card {% if note[4] == 1 %}private{% endif %}" data-user-id="{{ note[1] }}">
+                <div class="note-title">{{ note[2] }}</div>
+                <div class="note-meta">
+                    Posted by: User ID {{ note[1] }} 
+                    {% if note[4] == 1 %}<span style="color: #8b0000;">• PRIVATE</span>{% endif %}
+                </div>
+                <div class="note-content">{{ note[3] }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="hint-box">
+            <strong>🧜‍♀️ The Siren Whispers:</strong><br><br>
+            <em>"Different eyes see different truths. The API remembers all, but shows what you ask for.<br>
+            Try viewing:<br>
+            Each crew member's notes hold fragments."</em>
+        </div>
+        
+        <p style="text-align: center; margin-top: 30px;">
+            <a href="/dashboard">← Return to Main Deck</a>
+        </p>
+    </div>
+    
+    <script>
+        function filterNotes() {
+            const filter = document.getElementById('userFilter').value;
+            const notes = document.querySelectorAll('.note-card');
+            
+            notes.forEach(note => {
+                if (filter === 'all' || note.dataset.userId === filter) {
+                    note.style.display = 'block';
+                } else {
+                    note.style.display = 'none';
+                }
+            });
+        }
+        
+        console.log('[Crew Logs] Notes system loaded');
+        console.log('[API] Try accessing 1 through /api/n4');
+        console.log('[Hint] Private notes contain fragments of the access code');
+        console.log('...');
+    </script>
+</body>
+</html>
